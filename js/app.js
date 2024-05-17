@@ -40,7 +40,9 @@ function showPopular(data) {
     movieEl.classList.add("popular-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
+      <a href="../movie.html">
       <img class="popular-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+      </a>
       <h2 class="popular-name">${movie.nameRu}</h2>
       <p class="popular-year">${movie.year}</p>
       </div>
@@ -96,7 +98,9 @@ function showFamily(movies) {
     movieEl.classList.add("family-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
+      <a href="../movie.html">
       <img class="family-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+      </a>
       <h2 class="family-name">${movie.nameRu}</h2>
       <p class="family-year">${movie.year}</p>
       </div>
@@ -150,7 +154,9 @@ function showLove(movies) {
     movieEl.classList.add("love-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
+      <a href="../movie.html">
       <img class="love-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+      </a>
       <h2 class="love-name">${movie.nameRu}</h2>
       <p class="love-year">${movie.year}</p>
       </div>
@@ -205,7 +211,9 @@ function showTVSHOWS(movies) {
     movieEl.classList.add("tvshows-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
+      <a href="../movie.html">
       <img class="tvshows-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+      </a>
       <h2 class="tvshows-name">${movie.nameRu}</h2>
       <p class="tvshows-year">${movie.year}</p>
       </div>
@@ -261,7 +269,9 @@ function showZombie(movies) {
     movieEl.classList.add("zombie-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
-      <img class="zombie-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+      <a href="../movie.html">
+        <img class="zombie-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+      </a>
       <h2 class="zombie-name">${movie.nameRu}</h2>
       <p class="zombie-year">${movie.year}</p>
       </div>
