@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/category.css">
+    <title>КиноКороль - Про Зомби</title>
+</head>
+<body>
+    
+    <header class="container-header">
+        <div class="header__content">
+          <a href="../index.html" class="header__logo">Кино<span>Король</span></a>
+  
+  
+          <form class="right-header">
+            <a href="../films.html" class="Favorite">Фильмы</a>
+            <input type="text" class="header__search" placeholder="Поиск" />
+            <button class="profile"><a href="../login.html">Войти</a></button>
+          </form>
+  
+        </div>
+      </header>
+  
+
+    <main>
+        <div class="zombie"></div>
+    </main>
+
+    <footer>
+        <div class="left-footer">
+          <h1>Кино<span>Король</span></h1>
+          <p>Сделал: Сарамбаев Дмитрий</p>
+        </div>   
+  
+        <h1>Сайт создан на основе <a href="https://kinopoiskapiunofficial.tech/" target="_blank">API</a> Кинопоиска</h1>
+  
+          <div class="footer-body">
+          <ul>
+            <li><a href="../links/about.html">О нас</a></li>
+            <li><a href="../links/politika.html">Политика Конфиденциальности</a></li>
+            <li><a href="../links/agreement.html">Пользовательское соглашение</a></li>
+          </ul>
+          </div>
+      </footer>
+
+<script>
+const API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86";
+const API_URL_ZOMBIE = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=ZOMBIE_THEME&page=";
+
+let currentZombiePage = 1;
+let isZombieLoading = false; // Чтобы предотвратить несколько запросов одновременно
+let hasMoreMovies = true; // Флаг для остановки дальнейших запросов
+
+async function getZombieMovie(page) {
+  if (!hasMoreMovies) return;
+
+  const url = `${API_URL_ZOMBIE}${page}`;
+  console.log(`Fetching page: ${page}`); // Отладочное сообщение
+  try {
+    const resp = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY,
+      },
+    });
+
+    if (!resp.ok) {
+      throw new Error(`HTTP error! status: ${resp.status}`);
+    }
+
+    const respData = await resp.json();
+    
+    if (respData && respData.items) { // Проверяем, что ответ содержит данные
+      console.log(`Fetched ${respData.items.length} items`); // Отладочное сообщение
+      showZombie(respData.items);
+
+      // Если получено меньше 20 элементов, считаем, что больше фильмов нет
+      if (respData.items.length < 20) {
+        hasMoreMovies = false;
+      }
+    } else {
+      console.error("Unexpected response format", respData);
+      hasMoreMovies = false;
+    }
+  } catch (error) {
+    console.error("Error fetching zombie movies:", error);
+    hasMoreMovies = false;
+  } finally {
+    isZombieLoading = false; // Завершаем загрузку
+  }
+}
+
+function showZombie(movies) {
+  const zombieEl = document.querySelector(".zombie");
+
+  if (!zombieEl) {
+    console.error("No element with class 'zombie' found");
+    return;
+  }
+
+  // Добавляем новые фильмы к уже существующим
+  movies.forEach(movie => {
+    const movieEl = document.createElement("div");
+    movieEl.classList.add("zombie-card");
+    movieEl.innerHTML = `
+      <div>
+        <img class="zombie-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        <h2 class="zombie-name">${movie.nameRu}</h2>
+        <p class="zombie-year">${movie.year}</p>
+      </div>
+    `;
+    zombieEl.appendChild(movieEl);
+  });
+}
+
+function loadMoreZombieMovies() {
+  if (isZombieLoading || !hasMoreMovies) return; // Если уже идет загрузка или больше нет фильмов, ничего не делаем
+  isZombieLoading = true;
+  currentZombiePage++;
+  getZombieMovie(currentZombiePage);
+}
+
+// Изначально загружаем первую страницу
+getZombieMovie(currentZombiePage);
+
+// Добавляем обработчик прокрутки для загрузки новых фильмов при достижении конца страницы
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !isZombieLoading) {
+    loadMoreZombieMovies();
+  }
+});
+
+
+
+window.onscroll = function() { scrollFunction() };
+
+function scrollFunction() {
+  if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+      // Добавляем класс blur к элементу с классом header__content, если прокрутка больше 0
+      document.querySelector(".header__content").classList.add("blur");
+  } else {
+      // Убираем класс blur, если прокрутка равна 0
+      document.querySelector(".header__content").classList.remove("blur");
+  }
+  }
+</script>
+
+</body>
+</html>

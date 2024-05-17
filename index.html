@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css"/>
+      
+    <title>КиноКороль - главная</title>
+  </head>
+  <body>
+
+
+    <header class="container-header">
+      <div class="header__content">
+        <a href="index.html" class="header__logo">Кино<span>Король</span></a>
+
+
+        <form class="right-header">
+          <a href="films.html" class="Favorite">Фильмы</a>
+          <input type="text" class="header__search" placeholder="Поиск" />
+          <button class="profile"><a href="login.html">Войти</a></button>
+        </form>
+
+      </div>
+    </header>
+
+
+    <div class="home">
+      <div class="btn-switch">
+        <button class="prev-home">&lang;</button>
+        <button class="next-home">&rang;</button>
+      </div>
+          <div class="home-film-info">
+                <h1 id="film-title" class="film-title"></h1>
+                <h3 id="film-genre" class="film-genre"></h3>
+                <h4 id="film-description" class="film-description"></h4>
+                <button class="film-watch">Смотреть</button>
+          </div>
+
+          <div class="overlay-home"></div>
+  </div>
+
+
+    <main>
+      <div class="top-header">
+      <h1 class="category-popular">Популярное</h1>
+      <a class="full" href="./category-films/popular.html">Посмотреть все</a></div>
+      <div class="popular"></div>
+
+      <div class="top-header">
+      <h1 class="category-family">Семейное</h1>
+      <a class="full" href="./category-films/family.html">Посмотреть все</a></div>
+      <div class="family"></div>
+
+      <div class="top-header">
+      <h1 class="category-love">Про Любовь</h1>
+      <a class="full" href="./category-films/love.html">Посмотреть все</a></div>
+      <div class="love"></div>
+
+      <div class="top-header">
+      <h1 class="category-zombie">Про Зомби</h1>
+      <a class="full" href="./category-films/zombie.html">Посмотреть все</a></div>
+      <div class="zombie"></div>
+      
+      <div class="top-header">
+      <h1 class="category-tv-shows">Сериалы</h1>
+      <a class="full" href="./category-films/tv-shows.html">Посмотреть все</a></div>
+      <div class="tv-shows"></div>
+    </main>
+
+
+    <footer>
+      <div class="left-footer">
+        <h1>Кино<span>Король</span></h1>
+        <p>Сделал: Сарамбаев Дмитрий</p>
+      </div>   
+
+      <h1>Сайт создан на основе <a href="https://kinopoiskapiunofficial.tech/" target="_blank">API</a> Кинопоиска</h1>
+
+        <div class="footer-body">
+        <ul>
+          <li><a href="links/about.html">О нас</a></li>
+          <li><a href="links/politika.html">Политика Конфиденциальности</a></li>
+          <li><a href="links/agreement.html">Пользовательское соглашение</a></li>
+        </ul>
+        </div>
+    </footer>
+
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

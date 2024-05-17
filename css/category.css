@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+  overflow: auto; /* Включает прокрутку */
+  scrollbar-width: none; /* Скрывает полосу прокрутки в Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Скрывает полосу прокрутки в Chrome, Safari и новых версиях Edge */
+}
+
+
+body {
+    background-color: #252526;
+    font-family: "Montserrat", sans-serif;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+
+
+
+
+
+/* ШАПКА  ШАПКА ШАПКА ШАПКА*/
+
+.container-header{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+  }
+  
+  
+  .header__logo {
+      text-decoration: none;
+      font-size: 35px;
+      color: #ffffff;
+      font-weight: bold;
+      font-weight: 900;
+      transition: all 0.5s ease-in-out;
+  }
+  
+  .header__logo span {
+    color: yellow;
+  }
+  
+  .header__logo:hover {
+    transform: scale(1.1);
+  }
+  
+  .header__content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 100px;
+      height: 80px;
+      background-color: transparent;
+      transition: backdrop-filter 0.3s ease-in-out,
+      background-color 0.3s ease-in-out;
+      }
+  
+.blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .right-header {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+  
+  .header__search {
+      border: 1px solid rgb(170, 170, 170);
+      height: 35px;
+      width: 300px;
+      border-radius: 20px;
+      outline: none;
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding-left: 15px;
+      transition: all 0.5s ease-in-out;
+      
+  }
+  
+  .header__search:hover {
+    transform: scale(1.05);
+  }
+  
+  input::placeholder {
+    color: #ffffff;
+    font-weight: 900;
+  }
+  
+  .profile {
+    width: 110px;
+    height: 45px;
+    border-radius: 25px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .profile:hover {
+    transform: scale(1.1);
+  }
+  
+  .Favorite{
+    font-weight: bold;
+    color: #ffffff;
+    transition: all 0.5s ease-in-out;
+    font-weight: 900;
+    font-size: 20px;
+  }
+  
+  .Favorite:hover {
+    transform: scale(0.95);
+  }
+
+/* ШАПКА  ШАПКА ШАПКА ШАПКА */
+
+
+
+
+/* КОНЕЦ */
+
+  footer {
+    display: flex;
+    height: 150px;
+    background-color: black;
+    position: relative;
+    bottom: 0;
+    align-items: center;
+    padding: 0 100px;
+    justify-content: space-between;
+  }
+  
+  .left-footer h1 {
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 35px;
+  }
+  
+  .left-footer h1 span {
+    color: yellow;
+  }
+  
+  footer ul {
+    display: block;
+    align-items: center;
+    list-style-type: none;
+  }
+  
+  footer ul li a{
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  footer ul li a:hover {
+    border-bottom: 1px solid yellow;
+  }
+  
+  footer p {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  footer h1 {
+    font-weight: 900;
+    font-size: 30px;
+    color: #ffffff;
+  }
+  
+  footer h1 a {
+    color: yellow;
+  }
+
+/* КОНЕЦ */
+
+
+
+
+
+/* family */
+
+.family {
+    margin-top: 120px;
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  
+  .family-card {
+    width: 200px;
+    margin-bottom: 20px;
+  
+  }
+  
+  .family-card img:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+  }
+  
+  .family-photo {
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .family-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .family-year {
+    font-size: 16px;
+    color: gray;
+    font-weight: 900;
+  }
+
+  /* family */
+
+/* love */
+
+  .love {
+    margin-top: 120px;
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .love-card {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .love-card  img:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+  }
+  
+  .love-photo {
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .love-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .love-year {
+    font-size: 16px;
+    color: gray;
+    font-weight: 900;
+  }
+
+  /* love */
+
+
+  /* popular */
+  
+  .popular {
+    margin-top: 120px;
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .popular-card {
+  width: 200px;
+  margin-bottom: 20px;
+  }
+  
+  .popular-card img {
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .popular-card img:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+  }
+  
+  .popular-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .popular-year {
+    font-size: 16px;
+    color: gray;
+    font-weight: 900;
+  }
+
+  /* popular */
+
+
+  /* tv-shows */
+
+  .tv-shows {
+    margin-top: 120px;
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .tvshows-card {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .tvshows-card  img:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+  }
+  
+  .tvshows-photo {
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .tvshows-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .tvshows-year {
+    font-size: 16px;
+    color: gray;
+    font-weight: 900;
+  }
+
+  /* tv-shows */
+
+
+
+
+/* zombie */
+
+  .zombie {
+    margin-top: 120px;
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .zombie-card {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .zombie-card  img:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+  }
+  
+  .zombie-photo {
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .zombie-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .zombie-year {
+    font-size: 16px;
+    color: gray;
+    font-weight: 900;
+  }
+
+/* zombie */

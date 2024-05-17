@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КиноКороль - Про Любовь</title>
+    <link rel="stylesheet" href="../css/category.css">
+</head>
+<body>
+    
+    <header class="container-header">
+        <div class="header__content">
+          <a href="../index.html" class="header__logo">Кино<span>Король</span></a>
+  
+  
+          <form class="right-header">
+            <a href="../films.html" class="Favorite">Фильмы</a>
+            <input type="text" class="header__search" placeholder="Поиск" />
+            <button class="profile"><a href="../login.html">Войти</a></button>
+          </form>
+  
+        </div>
+      </header>
+  
+
+    <main>
+
+        <div class="love"></div>
+
+    </main>
+
+    <footer>
+        <div class="left-footer">
+          <h1>Кино<span>Король</span></h1>
+          <p>Сделал: Сарамбаев Дмитрий</p>
+        </div>   
+  
+        <h1>Сайт создан на основе <a href="https://kinopoiskapiunofficial.tech/" target="_blank">API</a> Кинопоиска</h1>
+  
+          <div class="footer-body">
+          <ul>
+            <li><a href="../links/about.html">О нас</a></li>
+            <li><a href="../links/politika.html">Политика Конфиденциальности</a></li>
+            <li><a href="../links/agreement.html">Пользовательское соглашение</a></li>
+          </ul>
+          </div>
+      </footer>
+  
+
+
+
+    <script>
+const API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86";
+const API_URL_LOVE = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=LOVE_THEME&page=";
+
+let currentLovePage = 1;
+let isLoveLoading = false; // Чтобы предотвратить несколько запросов одновременно
+
+async function getloveMovie(page) {
+  const url = `${API_URL_LOVE}${page}`;
+  try {
+    const resp = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY,
+      },
+    });
+
+    if (!resp.ok) {
+      throw new Error(`HTTP error! status: ${resp.status}`);
+    }
+
+    const respData = await resp.json();
+    
+    if (respData && respData.items) {
+      showLove(respData.items);
+    } else {
+      console.error("Unexpected response format", respData);
+    }
+  } catch (error) {
+    console.error("Error fetching love movies:", error);
+  } finally {
+    isLoveLoading = false; // Завершаем загрузку
+  }
+}
+
+function showLove(movies) {
+  const loveEl = document.querySelector(".love");
+
+  if (!loveEl) {
+    console.error("No element with class 'love' found");
+    return;
+  }
+
+  // Добавляем новые фильмы к уже существующим
+  movies.forEach(movie => {
+    const movieEl = document.createElement("div");
+    movieEl.classList.add("love-card");
+    movieEl.innerHTML = `
+      <div>
+        <img class="love-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        <h2 class="love-name">${movie.nameRu}</h2>
+        <p class="love-year">${movie.year}</p>
+      </div>
+    `;
+    loveEl.appendChild(movieEl);
+  });
+}
+
+function loadMoreLoveMovies() {
+  if (isLoveLoading) return; // Если уже идет загрузка, ничего не делаем
+  isLoveLoading = true;
+  currentLovePage++;
+  getloveMovie(currentLovePage);
+}
+
+// Изначально загружаем первую страницу
+getloveMovie(currentLovePage);
+
+// Добавляем обработчик прокрутки для загрузки новых фильмов при достижении конца страницы
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !isLoveLoading) {
+    loadMoreLoveMovies();
+  }
+});
+
+
+
+
+
+window.onscroll = function() { scrollFunction() };
+
+function scrollFunction() {
+  if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+      // Добавляем класс blur к элементу с классом header__content, если прокрутка больше 0
+      document.querySelector(".header__content").classList.add("blur");
+  } else {
+      // Убираем класс blur, если прокрутка равна 0
+      document.querySelector(".header__content").classList.remove("blur");
+  }
+  }
+
+    </script>
+</body>
+</html>
