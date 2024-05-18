@@ -447,3 +447,18 @@ function scrollFunction() {
       document.querySelector(".header__content").classList.remove("blur");
   }
   }
+
+
+
+
+
+
+
+// 
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('.close-shadow').addEventListener('click', function(event) {
+    event.preventDefault(); // Предотвращаем переход по ссылке
+    document.querySelector('.background-shadow').style.display = 'none';
+  });
+});

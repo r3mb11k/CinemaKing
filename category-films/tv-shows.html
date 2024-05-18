@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/category.css">
     <title>КиноКороль - Сериалы</title>
+    <link rel="website icon" type="png" href="https://cdn-icons-png.flaticon.com/512/6941/6941697.png">
 </head>
 <body>
     
@@ -94,7 +95,9 @@ function showTVSHOWS(movies) {
     movieEl.classList.add("tvshows-card");
     movieEl.innerHTML = `
       <div>
+        <a href="../movie.html">
         <img class="tvshows-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>
         <h2 class="tvshows-name">${movie.nameRu}</h2>
         <p class="tvshows-year">${movie.year}</p>
       </div>

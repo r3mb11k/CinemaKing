@@ -1,0 +1,509 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+  overflow: auto; /* Включает прокрутку */
+  scrollbar-width: none; /* Скрывает полосу прокрутки в Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Скрывает полосу прокрутки в Chrome, Safari и новых версиях Edge */
+}
+
+
+body {
+    background-color: #252526;
+    font-family: "Montserrat", sans-serif;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+
+
+
+
+/* шапка */ /* шапка */ /* шапка */ /* шапка */ /* шапка */
+
+.container-header{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+  }
+  
+  
+  .header__logo {
+      text-decoration: none;
+      font-size: 35px;
+      color: #ffffff;
+      font-weight: bold;
+      font-weight: 900;
+      transition: all 0.5s ease-in-out;
+  }
+  
+  .header__logo span {
+    color: yellow;
+  }
+  
+  .header__logo:hover {
+    transform: scale(1.1);
+  }
+  
+  .header__content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 100px;
+      height: 80px;
+      background-color: transparent;
+      transition: backdrop-filter 0.3s ease-in-out,
+      background-color 0.3s ease-in-out;
+      }
+  
+  .blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .right-header {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+  
+  .header__search {
+      border: 1px solid rgb(170, 170, 170);
+      height: 40px;
+      width: 300px;
+      border-radius: 20px;
+      outline: none;
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding-left: 15px;
+      transition: all 0.5s ease-in-out;
+      
+  }
+  
+  .header__search:hover {
+    transform: scale(1.05);
+  }
+  
+  input::placeholder {
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 14px;
+  }
+  
+  .profile {
+    width: 120px;
+    height: 45px;
+    border-radius: 25px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .profile:hover {
+    transform: scale(1.1);
+  }
+  
+  .Favorite{
+    font-weight: bold;
+    color: #ffffff;
+    transition: all 0.5s ease-in-out;
+    font-weight: 900;
+    font-size: 20px;
+  }
+  
+  .Favorite:hover {
+    transform: scale(0.90);
+  }
+  /* шапка */ /* шапка */ /* шапка */ /* шапка */ /* шапка */
+  
+
+
+
+
+
+
+
+
+.home-card {
+    background: url('https://avatars.mds.yandex.net/get-kinopoisk-image/4486454/9157a890-d530-470f-99bd-236be885e190/300x450');
+    position: relative;
+    min-height: 700px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100%;
+  }
+
+  .home-film-card {
+    position: absolute;
+    left: 100px;
+    z-index: 3;
+    top: 50%;
+    transform: translatey(-50%);
+    width: 1100px;
+  }
+  
+  .home-film-card img {
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px black;
+    margin-right: 100px;
+  }
+
+  .film-title-card {
+    color:#ffffff;
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+  
+  .film-genre-card {
+    color: rgb(229, 255, 0);
+    font-size: 18px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+  }
+  
+  .film-description-card {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 30px;
+    width: 600px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 10; /* ограничение в 10 строк */
+    -webkit-box-orient: vertical;
+  }
+  
+  .overlay-home {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    right: 0;  /* Указывает, что оверлей должен растягиваться до правого края контейнера */
+    bottom: 0;
+  }
+
+
+  .btn-card {
+    display: flex;
+  }
+  .card-trailer-watch {
+    width: 250px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    margin-right: 15px;
+    
+  }
+
+  .card-trailer-watch:hover {
+    transform: scale(0.95);
+  }
+
+  .card-favorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+  }
+
+
+  .card-favorite:hover {
+    transform: scale(0.95);
+  }
+
+
+/* О фильме */  /* О фильме */  /* О фильме */  /* О фильме */ 
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 100px;
+    margin:  100px 50px;
+    color: #ffffff;
+}
+
+
+
+
+.wrapper-col-1 p{
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 100px;
+}
+
+.wrapper-col-1 h1 {
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+.about-card {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 50px
+}
+
+.about-card li {
+    margin-bottom: 15px;
+    display: flex;
+    width: 100%;
+    font-size: 20px;
+}
+
+.about-card li .label {
+    width: 130px;
+    margin-right: 50px;
+    opacity: 0.5;
+    color: #ffffff;
+}
+
+
+.tag {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 3px 5px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+
+.card-rating {
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+.card-cadr {
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+
+
+.card-photos {
+    width: 250px;
+}
+
+
+.rating-main {
+display: block;
+margin-bottom: 100px;
+font-weight: 900;
+font-size: 36px;
+
+background: linear-gradient(to top, #ffee00, #3cff00);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+
+
+.actors {
+    background-color: rgb(50, 50, 50);
+    border-radius: 25px;
+    margin: 0 50px;
+    height: 250px;
+    margin-bottom: 100px;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.actors h1 {
+    position: relative;
+    top: 10px;
+    left: 20px;
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.similar {
+    background-color: rgb(50, 50, 50);
+    border-radius: 25px;
+    margin: 0 50px;
+    height: 250px;
+    margin-bottom: 100px;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.similar h1 {
+    position: relative;
+    top: 10px;
+    left: 20px;
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.reviews{
+    background-color: rgb(50, 50, 50);
+    border-radius: 25px;
+    margin: 0 50px;
+    height: 250px;
+    margin-bottom: 100px;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.reviews h1 {
+    position: relative;
+    top: 10px;
+    left: 20px;
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* конец конец */
+footer {
+    display: flex;
+    height: 150px;
+    background-color: black;
+    position: relative;
+    bottom: 0;
+    align-items: center;
+    padding: 0 100px;
+    justify-content: space-between;
+  }
+  
+  .left-footer h1 {
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 35px;
+  }
+  
+  .left-footer h1 span {
+    color: yellow;
+  }
+  
+  footer ul {
+    display: block;
+    align-items: center;
+  }
+  
+  footer ul li a{
+    list-style-type: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  footer ul li a:hover {
+    border-bottom: 1px solid yellow;
+  }
+  
+  footer p {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  footer h1 {
+    font-weight: 900;
+    font-size: 30px;
+    color: #ffffff;
+  }
+  
+  footer h1 a {
+    color: yellow;
+  }
+
+
+
+
+
+
+  .background-shadow {
+    display: block;
+    position: fixed; /* Чтобы элемент оставался на месте при прокрутке */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Высота 100% для покрытия всей страницы */
+    background-color: rgba(0, 0, 0, 0.99);
+    z-index: 10;
+  }
+  
+  .shadow-body {
+    position: absolute;
+    left: 50%;
+    text-align: center;
+    bottom:  50%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+  }
+
+  .background-shadow h1 {
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: 900;
+    cursor: default;
+    margin-bottom: 30px;
+  }
+  
+  .background-shadow a {
+    position: relative;
+    color: yellow;
+    font-size: 50px;
+    font-weight: 900;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .background-shadow a:hover {
+    color: red;
+  }
+

@@ -4,14 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КиноКороль - Кино</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="./css/card.css">
+    <link rel="website icon" type="png" href="https://cdn-icons-png.flaticon.com/512/6941/6941697.png">
 </head>
 <body>
-        <div class="background-shadow">
-        <h1>Страница еще делается...</h1>
-        <a href="index.html">Назад</a>
+
+  <div class="background-shadow">
+    <div class="shadow-body">
+    <h1>Страница еще делается...</h1>
+    <a class="close-shadow" href="#">Хочу посмотреть</a>
+  </div>
+  </div>
+
+
+
+  <header class="container-header">
+    <div class="header__content">
+      <a href="index.html" class="header__logo">Кино<span>Король</span></a>
+
+
+      <form class="right-header">
+        <a href="films.html" class="Favorite">Мои Фильмы</a>
+        <input type="text" class="header__search" placeholder="Поиск" />
+        <button class="profile"><a href="login.html">Войти</a></button>
+      </form>
+
+    </div>
+  </header>
+
+
+
+  <main class="movie-card">
+
+    <div class="home-card">
+
+      <div class="home-film-card">
+        <h1 id="film-title" class="film-title-card">Lorem ipsum dolo</h1>
+        <h3 id="film-genre" class="film-genre-card">Lorem ipsum dolor sit amet.</h3>
+        <h4 id="film-description" class="film-description-card">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, cupiditate accusantium! Placeat dolor doloribus laudantium illo, optio, eum soluta libero est aliquid blanditiis quo magnam deleniti vitae earum accusantium necessitatibus!</h4>
+          <div class="btn-card">
+          <button class="card-trailer-watch">Смотреть трейлер</button>
+          <button class="card-favorite"><span class="material-symbols-outlined">
+            bookmark_add
+            </span></button>
+          </div>
       </div>
 
-      <script src="./js/app.js"></script>
+  <div class="overlay-home"></div>
+
+    </div>
+
+  <div class="movie-card-body"> 
+
+      <div class="wrapper">
+
+        <div class="wrapper-col-1">
+
+            <h1>Описание</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quisquam beatae eveniet. Beatae architecto ut quia illum impedit sunt quo nostrum, quaerat facilis provident, dolorem ipsa, vitae molestiae! Libero pariatur aliquam repellat, error, odit autem quaerat consequuntur a assumenda aut, laboriosam dolore molestias suscipit perferendis natus inventore deserunt! Necessitatibus, laudantium.</p>
+
+            <div class="about-card">
+
+            <ul class="about-card-left">
+              <li><span class="label">Озвучка</span> SHIZA Project, 2x2</li>
+              <li><span class="label">Студия</span> Studio Pierrot</li>
+              <li><span class="label">Эпизоды</span> 220</li>
+              <li><span class="label">Жанр</span> Боевые искусства, Комедия</li>
+            </ul>
+            <div class="about-card-right">
+            <ul>
+                <li><span class="label">Выпуск</span>  с 3 октября 2002 по 8 февраля 2007</li>
+                <li><span class="label">Статус</span> Вышел</li>
+                <li><span class="label">Длительность</span> 23 мин. ~ серия</li>
+                <li><span class="label">Выпуск</span>  с 3 октября 2002 по 8 февраля 2007</li>    
+                <li><span class="label">Возрастные ограничения</span> <span><span class="tag"> 16+</span></span></li>
+            </ul>
+            </div>
+
+        </div>
+        </div>
+
+
+        <div class="wrapper-col-2">
+            <h1 class="card-rating">Рейтинг</h1>
+            <span class="rating-main">8.6</span>
+
+            <h1 class="card-cadr">Кадры из фильма</h1>
+            <div class="card-photos">
+              <img src="#" alt="#">
+              <img src="#" alt="#">
+              <img src="#" alt="#">
+              <img src="#" alt="#">
+              <img src="#" alt="#">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="actors">
+
+      <h1>Актеры</h1>
+    </div>
+
+    <div class="similar">
+
+      <h1>Похожие фильмы</h1>
+    </div>
+
+    <div class="reviews">
+
+      <h1>Отзывы</h1>
+    </div>
+
+  </div>
+  
+  </main>
+
+  <footer>
+    <div class="left-footer">
+      <h1>Кино<span>Король</span></h1>
+      <p>Сделал: Сарамбаев Дмитрий</p>
+    </div>   
+
+    <h1>Сайт создан на основе <a href="https://kinopoiskapiunofficial.tech/" target="_blank">API</a> Кинопоиска</h1>
+
+      <div class="footer-body">
+      <ul>
+        <li><a href="links/about.html">О нас</a></li>
+        <li><a href="links/politika.html">Политика Конфиденциальности</a></li>
+        <li><a href="links/agreement.html">Пользовательское соглашение</a></li>
+      </ul>
+      </div>
+  </footer>
+
+      <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('.close-shadow').addEventListener('click', function(event) {
+    event.preventDefault(); // Предотвращаем переход по ссылке
+    document.querySelector('.background-shadow').style.display = 'none';
+  });
+});
+
+      </script>
 </body>
 </html>

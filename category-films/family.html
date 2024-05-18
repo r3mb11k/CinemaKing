@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КиноКороль - Семейное</title>
     <link rel="stylesheet" href="../css/category.css">
+    <link rel="website icon" type="png" href="https://cdn-icons-png.flaticon.com/512/6941/6941697.png">
 </head>
 <body>
     
@@ -108,7 +109,9 @@ function showFamily(movies) {
     movieEl.classList.add("family-card");
     movieEl.innerHTML = `
       <div>
+        <a href="../movie.html">
         <img class="family-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>
         <h2 class="family-name">${movie.nameRu}</h2>
         <p class="family-year">${movie.year}</p>
       </div>

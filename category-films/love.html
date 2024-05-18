@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КиноКороль - Про Любовь</title>
     <link rel="stylesheet" href="../css/category.css">
+    <link rel="website icon" type="png" href="https://cdn-icons-png.flaticon.com/512/6941/6941697.png">
 </head>
 <body>
     
@@ -98,7 +99,9 @@ function showLove(movies) {
     movieEl.classList.add("love-card");
     movieEl.innerHTML = `
       <div>
+        <a href="../movie.html">
         <img class="love-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>
         <h2 class="love-name">${movie.nameRu}</h2>
         <p class="love-year">${movie.year}</p>
       </div>
