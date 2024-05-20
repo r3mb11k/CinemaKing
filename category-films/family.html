@@ -105,12 +105,18 @@ function showFamily(movies) {
 
   // Добавляем новые фильмы к уже существующим
   movies.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
     movieEl.classList.add("family-card");
     movieEl.innerHTML = `
       <div>
-        <a href="../movie.html">
-        <img class="family-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        <a href="../movie.html?id=${movieId}">
+          <img class="family-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
         </a>
         <h2 class="family-name">${movie.nameRu}</h2>
         <p class="family-year">${movie.year}</p>
@@ -136,6 +142,7 @@ window.addEventListener('scroll', () => {
     loadMoreMovies();
   }
 });
+
 
 
 

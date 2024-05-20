@@ -56,9 +56,13 @@ const API_URL_LOVE = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collect
 
 let currentLovePage = 1;
 let isLoveLoading = false; // Чтобы предотвратить несколько запросов одновременно
+let hasMoreLoveMovies = true; // Флаг для остановки дальнейших запросов
 
-async function getloveMovie(page) {
+async function getLoveMovie(page) {
+  if (!hasMoreLoveMovies) return;
+
   const url = `${API_URL_LOVE}${page}`;
+  console.log(`Fetching page: ${page}`); // Отладочное сообщение
   try {
     const resp = await fetch(url, {
       headers: {
@@ -74,12 +78,20 @@ async function getloveMovie(page) {
     const respData = await resp.json();
     
     if (respData && respData.items) {
+      console.log(`Fetched ${respData.items.length} items`); // Отладочное сообщение
       showLove(respData.items);
+
+      // Если получено меньше 20 элементов, считаем, что больше фильмов нет
+      if (respData.items.length < 20) {
+        hasMoreLoveMovies = false;
+      }
     } else {
       console.error("Unexpected response format", respData);
+      hasMoreLoveMovies = false;
     }
   } catch (error) {
     console.error("Error fetching love movies:", error);
+    hasMoreLoveMovies = false;
   } finally {
     isLoveLoading = false; // Завершаем загрузку
   }
@@ -95,12 +107,18 @@ function showLove(movies) {
 
   // Добавляем новые фильмы к уже существующим
   movies.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
     movieEl.classList.add("love-card");
     movieEl.innerHTML = `
       <div>
-        <a href="../movie.html">
-        <img class="love-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        <a href="../movie.html?id=${movieId}">
+          <img class="love-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
         </a>
         <h2 class="love-name">${movie.nameRu}</h2>
         <p class="love-year">${movie.year}</p>
@@ -111,14 +129,14 @@ function showLove(movies) {
 }
 
 function loadMoreLoveMovies() {
-  if (isLoveLoading) return; // Если уже идет загрузка, ничего не делаем
+  if (isLoveLoading || !hasMoreLoveMovies) return; // Если уже идет загрузка или больше нет фильмов, ничего не делаем
   isLoveLoading = true;
   currentLovePage++;
-  getloveMovie(currentLovePage);
+  getLoveMovie(currentLovePage);
 }
 
 // Изначально загружаем первую страницу
-getloveMovie(currentLovePage);
+getLoveMovie(currentLovePage);
 
 // Добавляем обработчик прокрутки для загрузки новых фильмов при достижении конца страницы
 window.addEventListener('scroll', () => {
@@ -126,8 +144,6 @@ window.addEventListener('scroll', () => {
     loadMoreLoveMovies();
   }
 });
-
-
 
 
 

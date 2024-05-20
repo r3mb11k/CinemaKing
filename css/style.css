@@ -91,6 +91,7 @@ background-color: rgba(0, 0, 0, 0.3);
     background-color: rgba(255, 255, 255, 0.3);
     padding-left: 15px;
     transition: all 0.5s ease-in-out;
+    font-weight: 900;
     
 }
 
@@ -98,9 +99,84 @@ background-color: rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
 }
 
-input::placeholder {
-  color: #ffffff;
+.header__search:focus {
+  transform: scale(1.05);
+}
+
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  right: 270px;
+  width: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: rgba(37, 37, 38, 0.95);
+  border-radius: 15px;
+  display: none;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-80px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Скрытие скроллбара */
+.search-results::-webkit-scrollbar {
+  display: none;
+}
+
+.search-results .result-item {
+  color: #fff;
+  font-weight: 700;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-results .result-item:hover {
+  background-color: #3a3a3a;
+  cursor: pointer;
+}
+
+.search-results .result-title {
+  flex: 1;
+}
+
+.search-results .result-rating {
+  font-size: 18px;
   font-weight: 900;
+  margin-left: 10px;
+}
+
+.search-results.show {
+  opacity: 1;
+  transform: translateY(-10px);
+}
+
+
+/* Цветовая система рейтинга */
+.rating-red {
+  color: red;
+}
+
+.rating-yellow {
+  color: yellow;
+}
+
+.rating-green {
+  color: green;
+}
+
+
+
+
+
+
+
+
+.header__search::placeholder {
+  color: #ffffff;
   font-size: 14px;
 }
 
@@ -214,7 +290,6 @@ input::placeholder {
   color: rgb(229, 255, 0);
   font-size: 18px;
   margin-bottom: 15px;
-  opacity: 0.8;
 }
 
 .film-description {
@@ -337,6 +412,7 @@ width: 200px;
   color: gray;
   font-weight: 900;
 }
+
 
 
 /* карточки   карточки*/
@@ -568,7 +644,7 @@ width: 200px;
   left: 0;
   width: 100%;
   height: 100%; /* Высота 100% для покрытия всей страницы */
-  background-color: rgba(0, 0, 0, 0.99);
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;
   display: flex; /* Центрирование содержимого */
   justify-content: center;
@@ -893,4 +969,327 @@ footer h1 {
 
 footer h1 a {
   color: yellow;
+}
+
+
+
+
+
+
+/* login login */ /* login login */ /* login login */ /* login login */
+
+
+
+
+.login-body {
+  background-color: #3a3a3a;
+  width: 400px;
+  height: 430px;
+  position: relative;
+  left:  50%;
+  transform: translateX(-50%);
+  top: 250px;
+  border-radius: 25px;
+  padding: 50px 50px;
+}
+
+
+.login-body h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  font-weight: 900;
+  margin-bottom: 50px;
+  color: #fff;
+}
+
+.login-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 30px;
+}
+
+.login-input:hover {
+  transform: scale(1.05);
+}
+
+
+.login-input svg{
+  position: absolute;
+  right: 15px
+  
+}
+
+
+.login-input input {
+  width: 100%;
+  height: 45px;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  padding: 0 15px;
+  font-weight: 900;
+}
+
+.login-input input::placeholder {
+  color: #fff;
+  font-weight: 900;
+}
+
+
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 30px;
+}
+
+.password-input input::placeholder {
+  color: #fff;
+  font-weight: 900;
+}
+
+.password-input:hover {
+  transform: scale(1.05);
+}
+
+.password-input input {
+  width: 100%;
+  height: 45px;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  padding: 0 15px;
+}
+
+.password-input svg{
+  position: absolute;
+  right: 15px
+}
+
+.log-in {
+  width: 100%;
+  height: 45px;
+  border: none;
+  color: #fff;
+  background-color: orange;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 18px;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.log-in:hover {
+  transform: scale(1.05);
+}
+
+
+.login-body p {
+  font-weight: 900;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* login login */ /* login login */ /* login login */ /* login login */
+
+
+
+/* register  */
+
+
+.register-body {
+  background-color: #3a3a3a;
+  width: 400px;
+  height: 500px;
+  position: relative;
+  left:  50%;
+  transform: translateX(-50%);
+  top: 250px;
+  border-radius: 25px;
+  padding: 50px 50px;
+}
+
+.register-body h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  font-weight: 900;
+  margin-bottom: 50px;
+  color: #fff;
+}
+
+.register-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.register-input:hover {
+  transform: scale(1.05);
+}
+
+.register-input input {
+  width: 100%;
+  height: 45px;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  padding: 0 15px;
+  font-weight: 900;
+}
+
+.register-input input::placeholder {
+  color: #fff;
+}
+
+.register-input svg {
+  position: absolute;
+  right: 15px;
+}
+
+.pass-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.pass-input:hover {
+  transform: scale(1.05);
+}
+
+.pass-input input {
+  width: 100%;
+  height: 45px;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  padding: 0 15px;
+  font-weight: 900;
+}
+
+.pass-input svg {
+  position: absolute;
+  right: 15px;
+}
+
+.pass-input input::placeholder {
+  color: #fff;
+}
+
+
+.repeat-pass {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.repeat-pass:hover {
+  transform: scale(1.05);
+}
+
+.repeat-pass input {
+  width: 100%;
+  height: 45px;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  padding: 0 15px;
+  font-weight: 900;
+}
+
+.repeat-pass input::placeholder {
+  color: #fff;
+}
+
+.repeat-pass svg {
+  position: absolute;
+  right: 15px;
+}
+
+
+
+.email-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 30px;
+}
+
+.email-input:hover {
+  transform: scale(1.05);
+}
+
+.email-input  input {
+  width: 100%;
+  height: 45px;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  padding: 0 15px;
+  font-weight: 900;
+}
+
+.email-input  input::placeholder {
+  color: #fff;
+}
+
+.email-input  svg {
+  position: absolute;
+  right: 15px;
+}
+
+
+
+.reg-in {
+  width: 100%;
+  height: 45px;
+  border: none;
+  color: #fff;
+  background-color: orange;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 18px;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.reg-in:hover {
+  transform: scale(1.05);
 }

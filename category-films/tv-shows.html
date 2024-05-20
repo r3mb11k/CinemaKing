@@ -52,9 +52,13 @@ const API_URL_TVSHOWS = "https://kinopoiskapiunofficial.tech/api/v2.2/films/coll
 
 let currentTVShowsPage = 1;
 let isTVShowsLoading = false; // Чтобы предотвратить несколько запросов одновременно
+let hasMoreTVShows = true; // Флаг для остановки дальнейших запросов
 
 async function getTVshowsMovie(page) {
+  if (!hasMoreTVShows) return;
+
   const url = `${API_URL_TVSHOWS}${page}`;
+  console.log(`Fetching page: ${page}`); // Отладочное сообщение
   try {
     const resp = await fetch(url, {
       headers: {
@@ -69,13 +73,21 @@ async function getTVshowsMovie(page) {
 
     const respData = await resp.json();
     
-    if (respData && respData.items) { // Проверяем, что ответ содержит данные
+    if (respData && respData.items) {
+      console.log(`Fetched ${respData.items.length} items`); // Отладочное сообщение
       showTVSHOWS(respData.items);
+
+      // Если получено меньше 20 элементов, считаем, что больше фильмов нет
+      if (respData.items.length < 20) {
+        hasMoreTVShows = false;
+      }
     } else {
       console.error("Unexpected response format", respData);
+      hasMoreTVShows = false;
     }
   } catch (error) {
     console.error("Error fetching TV shows:", error);
+    hasMoreTVShows = false;
   } finally {
     isTVShowsLoading = false; // Завершаем загрузку
   }
@@ -91,12 +103,18 @@ function showTVSHOWS(movies) {
 
   // Добавляем новые фильмы к уже существующим
   movies.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
     movieEl.classList.add("tvshows-card");
     movieEl.innerHTML = `
       <div>
-        <a href="../movie.html">
-        <img class="tvshows-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        <a href="../movie.html?id=${movieId}">
+          <img class="tvshows-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
         </a>
         <h2 class="tvshows-name">${movie.nameRu}</h2>
         <p class="tvshows-year">${movie.year}</p>
@@ -107,7 +125,7 @@ function showTVSHOWS(movies) {
 }
 
 function loadMoreTVShows() {
-  if (isTVShowsLoading) return; // Если уже идет загрузка, ничего не делаем
+  if (isTVShowsLoading || !hasMoreTVShows) return; // Если уже идет загрузка или больше нет фильмов, ничего не делаем
   isTVShowsLoading = true;
   currentTVShowsPage++;
   getTVshowsMovie(currentTVShowsPage);
@@ -122,6 +140,7 @@ window.addEventListener('scroll', () => {
     loadMoreTVShows();
   }
 });
+
 
 
 

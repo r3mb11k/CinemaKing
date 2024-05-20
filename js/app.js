@@ -2,7 +2,7 @@ let currentPage = 1; // добавляем переменную для отсл�
 
 const API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86";
 const API_URL_POPULAR =
-  `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=${currentPage}`;
+  `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_MOVIES&page=1`;
 const API_URL_SEARCH =
   "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=";
 const API_URL_MOVIE_DETAILS = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
@@ -13,38 +13,154 @@ const API_URL_LOVE = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collect
 const API_URL_TVshows = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_250_TV_SHOWS&page=1";
 const API_URL_ZOMBIE = "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=ZOMBIE_THEME&page=1";
 
-// getMovies(API_URL_POPULAR);
+
+
+
+
+const searchInput = document.querySelector('.header__search');
+const searchResults = document.querySelector('.search-results');
+
+searchInput.addEventListener('input', async () => {
+    const query = searchInput.value.trim();
+    if (query.length > 0) {
+        const movies = await searchMovies(query);
+        displayResults(movies);
+    } else {
+        searchResults.classList.remove('show');
+        setTimeout(() => searchResults.style.display = 'none', 500); // Wait for the transition to finish
+    }
+});
+
+async function searchMovies(query) {
+    const url = `${API_URL_SEARCH}${query}`;
+    try {
+        const response = await fetch(url, {
+            headers: {
+                "Content-Type": "application/json",
+                "X-API-KEY": API_KEY,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data.films;
+    } catch (error) {
+        console.error("Error fetching movies:", error);
+        return [];
+    }
+}
+
+function getRatingClass(rating) {
+    if (rating < 5) {
+        return 'rating-red';
+    } else if (rating < 7) {
+        return 'rating-yellow';
+    } else {
+        return 'rating-green';
+    }
+}
+
+function displayResults(movies) {
+    searchResults.innerHTML = '';
+    const validMovies = movies.filter(movie => {
+        const movieRating = parseFloat(movie.rating);
+        return movie.rating !== null && movie.rating !== 'N/A' && !isNaN(movieRating);
+    });
+
+    if (validMovies.length > 0) {
+        validMovies.forEach(movie => {
+            const resultItem = document.createElement('div');
+            resultItem.classList.add('result-item');
+
+            resultItem.addEventListener('click', () => {
+                window.location.href = `movie.html?id=${movie.filmId}`;
+            });
+
+            const title = document.createElement('div');
+            title.classList.add('result-title');
+            title.textContent = movie.nameRu;
+
+            const rating = document.createElement('div');
+            rating.classList.add('result-rating');
+            const movieRating = parseFloat(movie.rating);
+            rating.textContent = movieRating;
+            rating.classList.add(getRatingClass(movieRating));
+
+            resultItem.appendChild(title);
+            resultItem.appendChild(rating);
+            searchResults.appendChild(resultItem);
+        });
+        searchResults.style.display = 'block';
+        setTimeout(() => searchResults.classList.add('show'), 10); // Allow some time for reflow
+    } else {
+        searchResults.classList.remove('show');
+        setTimeout(() => searchResults.style.display = 'none', 500); // Wait for the transition to finish
+    }
+}
+
+
+
+
+
 
 
 
 
 async function getPopularMovie(url) {
-  const resp = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-KEY": API_KEY,
-    },
-  });
-  const respData = await resp.json();
-  showPopular(respData);
+  try {
+    const resp = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY,
+      },
+    });
+
+    if (!resp.ok) {
+      throw new Error(`HTTP error! status: ${resp.status}`);
+    }
+
+    const respData = await resp.json();
+    showPopular(respData);
+  } catch (error) {
+    console.error("Error fetching popular movies:", error);
+  }
+}
+
+function getRatingColor(rating) {
+  if (rating >= 7) return "green";
+  if (rating >= 5) return "yellow";
+  return "red";
 }
 
 function showPopular(data) {
   const popularEl = document.querySelector(".popular");
 
-  // Очищаем предыдущие популярные фильмы
-  popularEl.innerHTML = "";
+  if (!popularEl) {
+    console.error("No element with class 'popular' found");
+    return;
+  }
 
-  data.films.forEach(movie => {
+  popularEl.innerHTML = ""; // Очищаем предыдущие популярные фильмы
+
+  data.items.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    const rating = movie.ratingKinopoisk || 'N/A';
+
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
-    movieEl.classList.add("popular-card"); // Убедитесь, что карточка имеет правильный класс
+    movieEl.classList.add("popular-card");
     movieEl.innerHTML = `
       <div>
-      <a href="movie.html">
-      <img class="popular-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
-      </a>
-      <h2 class="popular-name">${movie.nameRu}</h2>
-      <p class="popular-year">${movie.year}</p>
+        <a href="movie.html?id=${movieId}">
+          <img class="popular-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>  
+        <h2 class="popular-name">${movie.nameRu}</h2>
+        <p class="popular-year">${movie.year}</p>
       </div>
     `;
 
@@ -57,7 +173,13 @@ getPopularMovie(API_URL_POPULAR);
 
 
 
-async function getfamilyMovie(url) {
+
+
+
+
+
+
+async function getFamilyMovie(url) {
   try {
     const resp = await fetch(url, {
       headers: {
@@ -72,7 +194,7 @@ async function getfamilyMovie(url) {
 
     const respData = await resp.json();
     
-    if (respData && respData.items) {  // Обратите внимание, что в ответе, вероятно, ключ "items", а не "films"
+    if (respData && respData.items) { // Обратите внимание, что в ответе, вероятно, ключ "items", а не "films"
       showFamily(respData.items);
     } else {
       console.error("Unexpected response format", respData);
@@ -94,26 +216,32 @@ function showFamily(movies) {
   familyEl.innerHTML = "";
 
   movies.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
-    movieEl.classList.add("family-card"); // Убедитесь, что карточка имеет правильный класс
+    movieEl.classList.add("family-card");
     movieEl.innerHTML = `
       <div>
-      <a href="movie.html">
-      <img class="family-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
-      </a>
-      <h2 class="family-name">${movie.nameRu}</h2>
-      <p class="family-year">${movie.year}</p>
+        <a href="movie.html?id=${movieId}">
+          <img class="family-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>
+        <h2 class="family-name">${movie.nameRu}</h2>
+        <p class="family-year">${movie.year}</p>
       </div>
     `;
     familyEl.appendChild(movieEl);
   });
 }
 
-getfamilyMovie(API_URL_FAMILY);
+getFamilyMovie(API_URL_FAMILY);
 
 
 
-async function getloveMovie(url) {
+async function getLoveMovie(url) {
   try {
     const resp = await fetch(url, {
       headers: {
@@ -150,22 +278,28 @@ function showLove(movies) {
   loveEl.innerHTML = "";
 
   movies.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
     movieEl.classList.add("love-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
-      <a href="movie.html">
-      <img class="love-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
-      </a>
-      <h2 class="love-name">${movie.nameRu}</h2>
-      <p class="love-year">${movie.year}</p>
+        <a href="movie.html?id=${movieId}">
+          <img class="love-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>
+        <h2 class="love-name">${movie.nameRu}</h2>
+        <p class="love-year">${movie.year}</p>
       </div>
     `;
     loveEl.appendChild(movieEl);
   });
 }
 
-getloveMovie(API_URL_LOVE);
+getLoveMovie(API_URL_LOVE);
 
 
 
@@ -191,7 +325,7 @@ async function getTVshowsMovie(url) {
       console.error("Unexpected response format", respData);
     }
   } catch (error) {
-    console.error("Error fetching love movies:", error);
+    console.error("Error fetching TV shows:", error);
   }
 }
 
@@ -199,7 +333,7 @@ function showTVSHOWS(movies) {
   const tvshowsEl = document.querySelector(".tv-shows");
 
   if (!tvshowsEl) {
-    console.error("No element with class 'love' found");
+    console.error("No element with class 'tv-shows' found");
     return;
   }
 
@@ -207,15 +341,21 @@ function showTVSHOWS(movies) {
   tvshowsEl.innerHTML = "";
 
   movies.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
     movieEl.classList.add("tvshows-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
-      <a href="movie.html">
-      <img class="tvshows-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
-      </a>
-      <h2 class="tvshows-name">${movie.nameRu}</h2>
-      <p class="tvshows-year">${movie.year}</p>
+        <a href="movie.html?id=${movieId}">
+          <img class="tvshows-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>
+        <h2 class="tvshows-name">${movie.nameRu}</h2>
+        <p class="tvshows-year">${movie.year}</p>
       </div>
     `;
     tvshowsEl.appendChild(movieEl);
@@ -243,40 +383,46 @@ async function getZombieMovie(url) {
 
     const respData = await resp.json();
     
-    if (respData && respData.items) {  // Обратите внимание, что в ответе, вероятно, ключ "items", а не "films"
+    if (respData && respData.items) {
       showZombie(respData.items);
     } else {
       console.error("Unexpected response format", respData);
     }
   } catch (error) {
-    console.error("Error fetching love movies:", error);
+    console.error("Error fetching zombie movies:", error);
   }
 }
 
 function showZombie(movies) {
-  const ZombieEl = document.querySelector(".zombie");
+  const zombieEl = document.querySelector(".zombie");
 
-  if (!ZombieEl) {
-    console.error("No element with class 'love' found");
+  if (!zombieEl) {
+    console.error("No element with class 'zombie' found");
     return;
   }
 
   // Очищаем предыдущие популярные фильмы
-  ZombieEl.innerHTML = "";
+  zombieEl.innerHTML = "";
 
   movies.forEach(movie => {
+    const movieId = movie.kinopoiskId;
+    if (!movieId) {
+      console.error("No valid movie ID found", movie);
+      return;
+    }
+
     const movieEl = document.createElement("div");
     movieEl.classList.add("zombie-card"); // Убедитесь, что карточка имеет правильный класс
     movieEl.innerHTML = `
       <div>
-      <a href="movie.html">
-        <img class="zombie-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
-      </a>
-      <h2 class="zombie-name">${movie.nameRu}</h2>
-      <p class="zombie-year">${movie.year}</p>
+        <a href="movie.html?id=${movieId}">
+          <img class="zombie-photo" src="${movie.posterUrlPreview}" alt="Не удалось загрузить">
+        </a>
+        <h2 class="zombie-name">${movie.nameRu}</h2>
+        <p class="zombie-year">${movie.year}</p>
       </div>
     `;
-    ZombieEl.appendChild(movieEl);
+    zombieEl.appendChild(movieEl);
   });
 }
 
@@ -284,7 +430,14 @@ getZombieMovie(API_URL_ZOMBIE);
 
 
 
+
+
+
+
+
+
 const API_URL_BASE = "https://kinopoiskapiunofficial.tech/api/v2.2/films/";
+
 
 // Пример массива с 30 ID фильмов, которые точно существуют в API
 const movieIds = [
@@ -357,10 +510,15 @@ function showHOME(index) {
   const titleEl = document.getElementById("film-title");
   const genreEl = document.getElementById("film-genre");
   const descriptionEl = document.getElementById("film-description");
+  const watchButton = document.querySelector(".film-watch");
 
   titleEl.textContent = movie.nameRu || "Название фильма";
   genreEl.textContent = movie.genres.map(genre => genre.genre).join(", ") || "Жанры";
   descriptionEl.textContent = movie.description || "Описание фильма";
+
+  watchButton.onclick = () => {
+    window.location.href = `movie.html?id=${movie.kinopoiskId}`;
+  };
 }
 
 // Добавляем обработчики событий для кнопок
@@ -454,11 +612,3 @@ function scrollFunction() {
 
 
 
-// 
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelector('.close-shadow').addEventListener('click', function(event) {
-    event.preventDefault(); // Предотвращаем переход по ссылке
-    document.querySelector('.background-shadow').style.display = 'none';
-  });
-});
