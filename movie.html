@@ -4,18 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КиноКороль - Кино</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+ 
+ 
     <link rel="stylesheet" href="./css/card.css">
     <link rel="website icon" type="png" href="https://cdn-icons-png.flaticon.com/512/6941/6941697.png">
-</head>
-<body>
 
-  <div class="background-shadow">
-    <div class="shadow-body">
-    <h1>Страница еще делается...</h1>
-    <a class="close-shadow" href="#">Хочу посмотреть</a>
-  </div>
-  </div>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+      </style>
+
+  </head>
+<body>
 
 
 
@@ -48,8 +54,8 @@
         <h4 id="film-description" class="film-description-card">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, cupiditate accusantium! Placeat dolor doloribus laudantium illo, optio, eum soluta libero est aliquid blanditiis quo magnam deleniti vitae earum accusantium necessitatibus!</h4>
           <div class="btn-card">
           <button class="card-trailer-watch">Смотреть трейлер</button>
-          <button class="card-favorite"><span class="material-symbols-outlined">
-            bookmark_add
+          <button class="card-favorite"><span class="material-symbols-outlined favorite-icon">
+            bookmark
             </span></button>
           </div>
       </div>
@@ -65,23 +71,21 @@
         <div class="wrapper-col-1">
 
             <h1>Описание</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quisquam beatae eveniet. Beatae architecto ut quia illum impedit sunt quo nostrum, quaerat facilis provident, dolorem ipsa, vitae molestiae! Libero pariatur aliquam repellat, error, odit autem quaerat consequuntur a assumenda aut, laboriosam dolore molestias suscipit perferendis natus inventore deserunt! Necessitatibus, laudantium.</p>
+            <p id="full-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quisquam beatae eveniet. Beatae architecto ut quia illum impedit sunt quo nostrum, quaerat facilis provident, dolorem ipsa, vitae molestiae! Libero pariatur aliquam repellat, error, odit autem quaerat consequuntur a assumenda aut, laboriosam dolore molestias suscipit perferendis natus inventore deserunt! Necessitatibus, laudantium.</p>
 
             <div class="about-card">
 
             <ul class="about-card-left">
-              <li><span class="label">Озвучка</span> SHIZA Project, 2x2</li>
-              <li><span class="label">Студия</span> Studio Pierrot</li>
-              <li><span class="label">Эпизоды</span> 220</li>
-              <li><span class="label">Жанр</span> Боевые искусства, Комедия</li>
+              <li><span class="label">Страна</span><span id="country">null</span></li>
+              <li><span class="label">Год</span><span id="year-info">null</span></li>
+              <li><span class="label">Тип</span><span id="type-info">null</span></li>
+              <li><span class="label">Жанр</span><span id="genres-info">null</span></li>
             </ul>
             <div class="about-card-right">
             <ul>
-                <li><span class="label">Выпуск</span>  с 3 октября 2002 по 8 февраля 2007</li>
-                <li><span class="label">Статус</span> Вышел</li>
-                <li><span class="label">Длительность</span> 23 мин. ~ серия</li>
-                <li><span class="label">Выпуск</span>  с 3 октября 2002 по 8 февраля 2007</li>    
-                <li><span class="label">Возрастные ограничения</span> <span><span class="tag"> 16+</span></span></li>
+              <li><span class="label">Длительность</span> <span id="size-info">null</span></li>
+                <li><span class="label">Оригинальное название</span> <span id="name-orig-info">null</span></li>
+                <li><span class="label">Возраст</span> <span id="age-info" class="age-info">null</span></li>
             </ul>
             </div>
 
@@ -91,29 +95,24 @@
 
         <div class="wrapper-col-2">
             <h1 class="card-rating">Рейтинг</h1>
-            <span class="rating-main">8.6</span>
+            <span  id="rating" class="rating-main">0</span>
 
             <h1 class="card-cadr">Кадры из фильма</h1>
-            <div class="card-photos">
-              <img src="#" alt="#">
-              <img src="#" alt="#">
-              <img src="#" alt="#">
-              <img src="#" alt="#">
-              <img src="#" alt="#">
+            <div id="card-photos" class="card-photos">
+
             </div>
         </div>
 
     </div>
 
-    <div class="actors">
+    <div class="actor-cat">
+    <h1 class="actors-category">Актеры</h1>
+    <a href="actors.html" class="ful-actors">Посмотреть все</a>
+    </div>
+    <div id="actors" class="actors">
 
-      <h1>Актеры</h1>
     </div>
 
-    <div class="similar">
-
-      <h1>Похожие фильмы</h1>
-    </div>
 
     <div class="reviews">
 
@@ -123,6 +122,10 @@
   </div>
   
   </main>
+
+
+
+
 
   <footer>
     <div class="left-footer">
@@ -142,172 +145,253 @@
   </footer>
 
       <script>
+              const API_URL_SEARCH = "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=";
+    const API_KEY_ABOUT_FILМ = "https://kinopoiskapiunofficial.tech/api/v2.2/films/";
+    const API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86";
+    const API_URL_BASE = "https://kinopoiskapiunofficial.tech/api/v2.2/films/";
 
-const API_KEY_ABOUT_FILM = "https://kinopoiskapiunofficial.tech/api/v2.2/films/";
+    // Получение ID фильма из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const filmId = urlParams.get('id');
 
-const API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86";
-const API_URL_SEARCH =
-  "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=";
+    // Функция для получения данных о фильме по ID
+    async function fetchMovieById(id) {
+      const url = `${API_URL_BASE}${id}`;
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": API_KEY,
+          },
+        });
 
+        if (!resp.ok) {
+          throw new Error(`HTTP error! status: ${resp.status}`);
+        }
 
-
-
-
-
-
-
-// Получение ID фильма из URL
-const urlParams = new URLSearchParams(window.location.search);
-const filmId = urlParams.get('id');
-
-// Функция для получения данных о фильме по ID
-async function fetchMovieById(id) {
-  const url = `${API_URL_BASE}${id}`;
-  try {
-    const resp = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        "X-API-KEY": API_KEY,
-      },
-    });
-
-    if (!resp.ok) {
-      throw new Error(`HTTP error! status: ${resp.status}`);
+        const movie = await resp.json();
+        return movie;
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+        return null;
+      }
     }
 
-    const movie = await resp.json();
-    return movie;
-  } catch (error) {
-    console.error("Error fetching movie data:", error);
-    return null;
-  }
-}
+    // Функция для отображения данных о фильме на странице
+    function showMovieData(movie) {
+      if (!movie) return;
 
-// Функция для отображения данных о фильме на странице
-function showMovieData(movie) {
-  if (!movie) return;
+      const homeCard = document.querySelector('.home-card');
+      homeCard.style.backgroundImage = `url(${movie.coverUrl})`;
 
-  document.querySelector('.home-card').style.backgroundImage = `url(${movie.coverUrl})`;
+      const homeCardor = document.querySelector('.home-card');
+      homeCard.style.backgroundImage = `url(${movie.posterUrl})`;
 
-  document.getElementById('film-title').textContent = movie.nameRu || "Название фильма";
-  document.getElementById('film-genre').textContent = movie.genres.map(genre => genre.genre).join(", ") || "Жанры";
-  document.getElementById('film-description').textContent = movie.shortDescription || movie.description || "Описание фильма";
-  document.getElementById('film-full-description').textContent = movie.description || "Полное описание фильма";
-  document.getElementById('film-rating').textContent = movie.ratingKinopoisk || "Рейтинг";
+      document.getElementById('film-title').textContent = movie.nameRu || "Название фильма";
+      document.getElementById('film-genre').textContent = movie.genres.map(genre => genre.genre).join(", ") || "Жанры";
+      document.getElementById('film-description').textContent = movie.shortDescription || movie.description || "Описание фильма";
+      document.getElementById('full-description').textContent = movie.description || "Описание фильма";
 
-  document.getElementById('film-voice').textContent = movie.nameOriginal || "Озвучка";
-  document.getElementById('film-studio').textContent = "Не указана"; // Пока что оставим заглушку, так как API не предоставляет студии
-  document.getElementById('film-episodes').textContent = movie.filmLength ? `${movie.filmLength} мин.` : "Эпизоды";
-  document.getElementById('film-genre-list').textContent = movie.genres.map(genre => genre.genre).join(", ") || "Жанры";
-  document.getElementById('film-release').textContent = movie.year ? `${movie.year}` : "Дата выпуска";
-  document.getElementById('film-status').textContent = "Не указан"; // Пока что оставим заглушку, так как API не предоставляет статус
-  document.getElementById('film-duration').textContent = movie.filmLength ? `${movie.filmLength} мин.` : "Длительность";
-  document.getElementById('film-age').textContent = movie.ratingAgeLimits ? `${movie.ratingAgeLimits.replace("age", "")}+` : "Возрастные ограничения";
+      const ratingEl = document.getElementById('rating');
+      const rating = movie.ratingKinopoisk || movie.ratingImdb || movie.ratingFilmCritics || "Нет";
+      ratingEl.textContent = rating;
 
-  const photosEl = document.getElementById('film-photos');
-  photosEl.innerHTML = `<img src="${movie.posterUrl}" alt="Кадр из фильма">`;
+      // Применение цветного рейтинга
+      ratingEl.classList.remove('rating-low', 'rating-medium', 'rating-high');
+      if (rating !== "Нет") {
+        if (rating < 5) {
+          ratingEl.classList.add('rating-low');
+        } else if (rating < 7) {
+          ratingEl.classList.add('rating-medium');
+        } else {
+          ratingEl.classList.add('rating-high');
+        }
+      }
 
-  // Похожие фильмы и отзывы пока оставим заглушкой, так как API не предоставляет эту информацию в данном запросе
-  document.getElementById('similar-movies').innerHTML = "Похожие фильмы";
-  document.getElementById('film-reviews').innerHTML = "Отзывы";
-}
+      document.getElementById('country').textContent = movie.countries.map(country => country.country).join(", ") || "Страна";
+      document.getElementById('year-info').textContent = movie.year || "Год";
+      document.getElementById('type-info').textContent = movie.type === 'FILM' ? 'Фильм' : movie.type === 'TV_SERIES' ? 'Сериал' : 'Тип';
+      document.getElementById('genres-info').textContent = movie.genres.map(genre => genre.genre).join(", ") || "Жанры";
+      document.getElementById('size-info').textContent = movie.filmLength ? `${movie.filmLength} мин` : "Длительность";
+      document.getElementById('name-orig-info').textContent = movie.nameOriginal || "Нет";
 
-// Загрузка данных о фильме и отображение на странице
-fetchMovieById(filmId).then(movie => {
-  showMovieData(movie);
-});
+      const ageLimit = movie.ratingAgeLimits ? movie.ratingAgeLimits.replace('age', '') + '+' : "";
+      const pgLimit = movie.ratingMpaa ? movie.ratingMpaa.toUpperCase() : "";
+      const combinedLimit = ageLimit || pgLimit || "Нет данных";
 
+      document.getElementById('age-info').textContent = combinedLimit;
 
-
-
-
-
-
-
-
-
-
-const searchInput = document.querySelector('.header__search');
-const searchResults = document.querySelector('.search-results');
-
-searchInput.addEventListener('input', async () => {
-    const query = searchInput.value.trim();
-    if (query.length > 0) {
-        const movies = await searchMovies(query);
-        displayResults(movies);
-    } else {
-        searchResults.classList.remove('show');
-        setTimeout(() => searchResults.style.display = 'none', 500); // Wait for the transition to finish
+            // Проверка, добавлен ли фильм в избранное
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      const isFavorite = favorites.some(fav => fav.kinopoiskId === movie.kinopoiskId);
+      const favoriteIcon = document.querySelector('.favorite-icon');
+      favoriteIcon.style.fontVariationSettings = `'FILL' ${isFavorite ? 1 : 0}`;
     }
-});
 
-async function searchMovies(query) {
-    const url = `${API_URL_SEARCH}${query}`;
-    try {
-        const response = await fetch(url, {
+
+    // Функция для получения кадров из фильма по ID
+    async function fetchMovieImages(id) {
+      const url1 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}/images?type=SHOOTING&page=1`;
+      const url2 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}/images?type=STILL&page=1`;
+      const url3 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}/images?type=POSTER&page=1`;
+
+      try {
+        let resp = await fetch(url1, {
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": API_KEY,
+          },
+        });
+
+        if (!resp.ok) {
+          throw new Error(`HTTP error! status: ${resp.status}`);
+        }
+
+        let data = await resp.json();
+        if (!data.items || data.items.length === 0) {
+          resp = await fetch(url2, {
             headers: {
+              "Content-Type": "application/json",
+              "X-API-KEY": API_KEY,
+            },
+          });
+
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+
+          data = await resp.json();
+
+          if (!data.items || data.items.length === 0) {
+            resp = await fetch(url3, {
+              headers: {
                 "Content-Type": "application/json",
                 "X-API-KEY": API_KEY,
-            },
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data.films;
-    } catch (error) {
-        console.error("Error fetching movies:", error);
-        return [];
-    }
-}
-
-function getRatingClass(rating) {
-    if (rating < 5) {
-        return 'rating-red';
-    } else if (rating < 7) {
-        return 'rating-yellow';
-    } else {
-        return 'rating-green';
-    }
-}
-
-function displayResults(movies) {
-    searchResults.innerHTML = '';
-    const validMovies = movies.filter(movie => {
-        const movieRating = parseFloat(movie.rating);
-        return movie.rating !== null && movie.rating !== 'N/A' && !isNaN(movieRating);
-    });
-
-    if (validMovies.length > 0) {
-        validMovies.forEach(movie => {
-            const resultItem = document.createElement('div');
-            resultItem.classList.add('result-item');
-
-            resultItem.addEventListener('click', () => {
-                window.location.href = `movie.html?id=${movie.filmId}`;
+              },
             });
 
-            const title = document.createElement('div');
-            title.classList.add('result-title');
-            title.textContent = movie.nameRu;
+            if (!resp.ok) {
+              throw new Error(`HTTP error! status: ${resp.status}`);
+            }
 
-            const rating = document.createElement('div');
-            rating.classList.add('result-rating');
-            const movieRating = parseFloat(movie.rating);
-            rating.textContent = movieRating;
-            rating.classList.add(getRatingClass(movieRating));
+            data = await resp.json();
+          }
+        }
 
-            resultItem.appendChild(title);
-            resultItem.appendChild(rating);
-            searchResults.appendChild(resultItem);
-        });
-        searchResults.style.display = 'block';
-        setTimeout(() => searchResults.classList.add('show'), 10); // Allow some time for reflow
-    } else {
-        searchResults.classList.remove('show');
-        setTimeout(() => searchResults.style.display = 'none', 500); // Wait for the transition to finish
+        if (data && data.items) {
+          const photosContainer = document.getElementById('card-photos');
+          photosContainer.innerHTML = ""; // Очищаем предыдущие изображения
+
+          data.items.slice(0, 6).forEach(item => {
+            const imgEl = document.createElement('img');
+            imgEl.src = item.imageUrl;
+            imgEl.alt = "Кадр из фильма";
+            photosContainer.appendChild(imgEl);
+          });
+        } else {
+          console.error("Unexpected response format", data);
+        }
+      } catch (error) {
+        console.error("Error fetching movie images:", error);
+      }
     }
-}
+
+    // Функция для получения данных об актерах
+    async function fetchMovieActors(id) {
+      const url = `https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${id}`;
+
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": API_KEY,
+          },
+        });
+
+        if (!resp.ok) {
+          throw new Error(`HTTP error! status: ${resp.status}`);
+        }
+
+        const data = await resp.json();
+
+        if (data && data.length > 0) {
+          const actorsContainer = document.getElementById('actors');
+          actorsContainer.innerHTML = ""; // Очищаем предыдущие данные
+
+          data.filter(actor => actor.professionKey === "ACTOR").slice(0, 8).forEach(actor => {
+            const actorEl = document.createElement('div');
+            actorEl.classList.add('actor');
+            actorEl.innerHTML = `
+              <img src="${actor.posterUrl}" alt="${actor.nameRu}">
+              <div>
+                <h1>${actor.nameRu}</h1>
+                <p>${actor.description || "Актер"}</p>
+              </div>
+            `;
+            actorsContainer.appendChild(actorEl);
+          });
+        } else {
+          console.error("No actors found", data);
+        }
+      } catch (error) {
+        console.error("Error fetching movie actors:", error);
+      }
+    }
+
+    // Функция для получения трейлеров
+    async function fetchMovieTrailers(id) {
+      const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}/videos`;
+
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": API_KEY,
+          },
+        });
+
+        if (!resp.ok) {
+          throw new Error(`HTTP error! status: ${resp.status}`);
+        }
+
+        const data = await resp.json();
+
+        if (data && data.items) {
+          const trailer = data.items.find(item => item.site === "YOUTUBE" || item.site === "KINOPOISK_WIDGET" || item.site === "YANDEX_DISK");
+          if (trailer) {
+            const trailerButton = document.querySelector('.card-trailer-watch');
+            trailerButton.addEventListener('click', () => {
+              window.open(trailer.url, '_blank');
+            });
+          } else {
+            console.error("No trailer found", data);
+          }
+        } else {
+          console.error("Unexpected response format", data);
+        }
+      } catch (error) {
+        console.error("Error fetching movie trailers:", error);
+      }
+    }
+
+    // Функция для добавления или удаления фильма из избранного
+    function toggleFavorite(movie) {
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      const isFavorite = favorites.some(fav => fav.kinopoiskId === movie.kinopoiskId);
+      const favoriteIcon = document.querySelector('.favorite-icon');
+
+      if (isFavorite) {
+        // Удалить из избранного
+        const newFavorites = favorites.filter(fav => fav.kinopoiskId !== movie.kinopoiskId);
+        localStorage.setItem('favorites', JSON.stringify(newFavorites));
+        favoriteIcon.style.fontVariationSettings = "'FILL' 0";
+      } else {
+        // Добавить в избранное
+        favorites.push(movie);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        favoriteIcon.style.fontVariationSettings = "'FILL' 1";
+      }
+    }
 
 
 
@@ -317,6 +401,25 @@ function displayResults(movies) {
 
 
 
+    // Вызов функций с id фильма
+    fetchMovieById(filmId).then(movie => {
+      showMovieData(movie);
+      fetchMovieImages(filmId); // Запрос на получение кадров из фильма
+      fetchMovieActors(filmId); // Запрос на получение актеров
+      fetchMovieTrailers(filmId); // Запрос на получение трейлеров
+
+      // Добавление ID фильма к ссылке на актеров
+      const actorsLink = document.querySelector('.ful-actors');
+      if (actorsLink) {
+        actorsLink.href = `actors.html?filmId=${filmId}`;
+      }
+
+      // Добавление события для кнопки избранного
+      const favoriteButton = document.querySelector('.card-favorite');
+      favoriteButton.addEventListener('click', () => {
+        toggleFavorite(movie);
+      });
+    });
 
 
 
@@ -324,32 +427,104 @@ function displayResults(movies) {
 
 
 
+        const searchInput = document.querySelector('.header__search');
+        const searchResults = document.querySelector('.search-results');
+
+        searchInput.addEventListener('input', async () => {
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                const movies = await searchMovies(query);
+                displayResults(movies);
+            } else {
+                searchResults.classList.remove('show');
+                setTimeout(() => searchResults.style.display = 'none', 500); // Wait for the transition to finish
+            }
+        });
+
+        async function searchMovies(query) {
+            const url = `${API_URL_SEARCH}${query}`;
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-API-KEY": API_KEY,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data.films;
+            } catch (error) {
+                console.error("Error fetching movies:", error);
+                return [];
+            }
+        }
+
+        function getRatingClass(rating) {
+            if (rating < 5) {
+                return 'rating-red';
+            } else if (rating < 7) {
+                return 'rating-yellow';
+            } else {
+                return 'rating-green';
+            }
+        }
+
+        function displayResults(movies) {
+            searchResults.innerHTML = '';
+            const validMovies = movies.filter(movie => {
+                const movieRating = parseFloat(movie.rating);
+                return movie.rating !== null && movie.rating !== 'N/A' && !isNaN(movieRating);
+            });
+
+            if (validMovies.length > 0) {
+                validMovies.forEach(movie => {
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+
+                    resultItem.addEventListener('click', () => {
+                        window.location.href = `movie.html?id=${movie.filmId}`;
+                    });
+
+                    const title = document.createElement('div');
+                    title.classList.add('result-title');
+                    title.textContent = movie.nameRu;
+
+                    const rating = document.createElement('div');
+                    rating.classList.add('result-rating');
+                    const movieRating = parseFloat(movie.rating);
+                    rating.textContent = movieRating;
+                    rating.classList.add(getRatingClass(movieRating));
+
+                    resultItem.appendChild(title);
+                    resultItem.appendChild(rating);
+                    searchResults.appendChild(resultItem);
+                });
+                searchResults.style.display = 'block';
+                setTimeout(() => searchResults.classList.add('show'), 10); // Allow some time for reflow
+            } else {
+                searchResults.classList.remove('show');
+                setTimeout(() => searchResults.style.display = 'none', 500); // Wait for the transition to finish
+            }
+        }
 
 
 
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelector('.close-shadow').addEventListener('click', function(event) {
-    event.preventDefault(); // Предотвращаем переход по ссылке
-    document.querySelector('.background-shadow').style.display = 'none';
-  });
-});
+    window.onscroll = function() { scrollFunction() };
 
-
-window.onscroll = function() { scrollFunction() };
-
-function scrollFunction() {
-  if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-      // Добавляем класс blur к элементу с классом header__content, если прокрутка больше 0
-      document.querySelector(".header__content").classList.add("blur");
-  } else {
-      // Убираем класс blur, если прокрутка равна 0
-      document.querySelector(".header__content").classList.remove("blur");
-  }
-  }
-
+    function scrollFunction() {
+      if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+        // Добавляем класс blur к элементу с классом header__content, если прокрутка больше 0
+        document.querySelector(".header__content").classList.add("blur");
+      } else {
+        // Убираем класс blur, если прокрутка равна 0
+        document.querySelector(".header__content").classList.remove("blur");
+      }
+    }
 
       </script>
 </body>

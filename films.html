@@ -10,10 +10,6 @@
 <body>
     
 
-  <div class="background-shadow">
-    <h1>Страница еще делается...</h1>
-    <a href="index.html">Назад</a>
-  </div>
 
     <header class="container-header">
         <div class="header__content">
@@ -31,18 +27,11 @@
   
   
   
-      <main>
-        
-
-        <div class="container"></div>
-  
-        <div class="movies"></div>
-        <div class="modal"></div>
-
-
+      <main class="favorite-films">
+        <h1>Избранные Фильмы</h1>
+        <div id="favorite-movies" class="movies-container"></div>
       </main>
-  
-      <div class="pagination"></div>
+
   
     
 
@@ -68,148 +57,41 @@
 
     <script>
 
-let currentPage = 1; // добавляем переменную для отслеживания текущей страницы
 
-const API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86";
-const API_URL_POPULAR =
-  `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=${currentPage}`;
-const API_URL_SEARCH =
-  "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=";
-const API_URL_MOVIE_DETAILS = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
+document.addEventListener('DOMContentLoaded', () => {
+      const favoritesContainer = document.getElementById('favorite-movies');
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
+      if (favorites.length > 0) {
+        favorites.forEach(movie => {
+          const movieEl = document.createElement('div');
+          movieEl.classList.add('movie-card');
 
-getMovies(API_URL_POPULAR);
+          movieEl.innerHTML = `
+            <img src="${movie.posterUrl}" alt="${movie.nameRu}" class="movie-poster">
+            <div class="movie-info">
+              <h2>${movie.nameRu}</h2>
+              <p>${movie.year}</p>
+            </div>
+          `;
 
+          const moviePoster = movieEl.querySelector('.movie-poster');
+          moviePoster.addEventListener('click', () => {
+            window.location.href = `movie.html?id=${movie.kinopoiskId}`;
+          });
 
-
-
-
-
-
-
-async function getMovies(url) {
-  const resp = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-KEY": API_KEY,
-    },
-  });
-  const respData = await resp.json();
-  showMovies(respData);
-}
-
-function showMovies(data) {
-  const moviesEl = document.querySelector(".movies");
-
-  // Очищаем предыдущие фильмы
-  document.querySelector(".movies").innerHTML = "";
-
-  data.films.forEach((movie) => {
-    const movieEl = document.createElement("div");
-    movieEl.classList.add("movie");
-    movieEl.innerHTML = `
-        <div class="movie__cover-inner">
-        <img
-          src="${movie.posterUrlPreview}"
-          class="movie__cover"
-          alt="${movie.nameRu}"
-        />
-        <div class="movie__cover--darkened"></div>
-      </div>
-      <div class="movie__info">
-        <div class="movie__title">${movie.nameRu}</div>
-        <div class="movie__year">${movie.year}</div>
-        `;
-    movieEl.addEventListener("click", () => openModal(movie.filmId))
-    moviesEl.appendChild(movieEl);
-
-
-  });
-}
-
-
-// главная фото
-
-const form = document.querySelector("form");
-const search = document.querySelector(".header__search");
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const apiSearchUrl = `${API_URL_SEARCH}${search.value}`;
-  if (search.value) {
-    getMovies(apiSearchUrl);
-
-    search.value = "";
-  }
-});
-
-
-
-// Создаем пагинацию
-let paginationHTML = '<a href="#">«</a>';
-for (let i = 1; i <= 7; i++) {
-  if (i === 1) {
-    paginationHTML += `<a href="#" class="active">${i}</a>`;
-  } else {
-    paginationHTML += `<a href="#">${i}</a>`;
-  }
-}
-paginationHTML += '<a href="#">»</a>';
-document.querySelector(".pagination").innerHTML = paginationHTML;
-
-// Получаем все элементы пагинации
-const pages = document.querySelectorAll(".pagination a");
-
-// Показываем или скрываем кнопку "назад" при загрузке страницы
-const backButton = document.querySelector(".pagination a:first-child");
-if (currentPage === 1) {
-  backButton.classList.add("hidden");
-} else {
-  backButton.classList.remove("hidden");
-}
-
-pages.forEach((page, index) => {
-  page.addEventListener("click", async (e) => {
-    e.preventDefault();
-
-    // Если нажата кнопка "назад"
-    if (page.textContent === '«') {
-      // Уменьшаем номера всех страниц на 7
-      for (let i = 1; i < pages.length - 1; i++) { // Пропускаем первую и последнюю кнопки (« и »)
-        const newNumber = parseInt(pages[i].textContent) - 7;
-        if (newNumber >= 1) { // Проверяем, чтобы номер страницы не был меньше 1
-          pages[i].textContent = newNumber;
-        }
+          favoritesContainer.appendChild(movieEl);
+        });
       }
-    } else if (page.textContent === '»') {
-      // Увеличиваем номера всех страниц на 7
-      for (let i = 1; i < pages.length - 1; i++) { // Пропускаем первую и последнюю кнопки (« и »)
-        const newNumber = parseInt(pages[i].textContent) + 7;
-        if (newNumber <= 35) { // Проверяем, чтобы номер страницы не превышал 35
-          pages[i].textContent = newNumber;
-        }
-      }
-    } else {
-      // Обновляем текущую страницу
-      currentPage = parseInt(page.textContent);
+    });
 
-      // Получаем фильмы для новой страницы
-      const movies = await getMovies(`https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=${currentPage}`);
-      
-      // Обновляем активную страницу в пагинации
-      document.querySelector(".pagination a.active").classList.remove("active");
-      page.classList.add("active"); // Устанавливаем активной нажатую страницу
-    }
 
-    // Показываем или скрываем кнопку "назад"
-    if (currentPage === 1) {
-      backButton.classList.add("hidden");
-    } else {
-      backButton.classList.remove("hidden");
-    }
-  });
-});
+
+
+
+
+
+
 
 window.onscroll = function() {scrollFunction()};
 

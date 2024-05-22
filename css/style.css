@@ -926,6 +926,7 @@ footer {
   align-items: center;
   padding: 0 100px;
   justify-content: space-between;
+  width: 100%;
 }
 
 .left-footer h1 {
@@ -1293,3 +1294,80 @@ footer h1 a {
 .reg-in:hover {
   transform: scale(1.05);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* ИЗБРАННОЕ */ /* ИЗБРАННОЕ */ /* ИЗБРАННОЕ */ /* ИЗБРАННОЕ *//* ИЗБРАННОЕ */
+
+
+.movies-container {
+  position: relative;
+  margin: 0 50px;
+  display: flex;
+  gap: 15px;
+  height: 620px;
+}
+
+
+
+.movie-card {
+  width: 200px;
+  height: 360px;
+  color: #fff;
+}
+
+.favorite-films h1 {
+  margin-top: 130px;
+  position: relative;
+  left: 50px;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+
+
+
+.movie-card img {
+  width: 200px;
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: 5px 10px 10px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.movie-card img:hover {
+  transform: scale(1.1);
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+}
+
+
+.movie-info h2 {
+  font-size: 16px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-info p {
+  font-size: 16px;
+  color: gray;
+  font-weight: 900;
+}
+
+/* ИЗБРАННОЕ */ /* ИЗБРАННОЕ */ /* ИЗБРАННОЕ */ /* ИЗБРАННОЕ *//* ИЗБРАННОЕ */
